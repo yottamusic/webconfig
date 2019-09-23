@@ -2,37 +2,54 @@
 <html style="height: 100%;">
 
 <head>
-  <title>Sample Form Actions</title>
-  <script src="saveAuth.js"></script>
+	<title>YottaMusic Speaker Configuration</title>
+	<script src="saveAuth.js"></script>
 </head>
 
 <body style="margin: 0; height: 100%; font-family: arial;">
 
-  <div style="height: 100%; background: #00A3D9;">
-    <div style="text-align: center; padding: 100px 0; background: #00BFFF;">
-      <h1 style="color: #fff;">Auth App</h1>
-    </div>
-    <div style="text-align: center; padding: 50px 0;">
-      <h2 style="color: #fff;">Login Form</h2>
-      <form style="text-align: left; max-width: 600px; margin: 0 auto;">
-        <input id="username" type="text" style="padding: 10px; width: 100%; border: 1px solid rgba(0,0,0,0.4); border-radius: 4px; color: #555; margin-bottom: 20px;" placeholder="Enter Your Name" />
-        <input id="password" type="password" style="padding: 10px; width: 100%; border: 1px solid rgba(0,0,0,0.4); border-radius: 4px; color: #555;" placeholder="Enter Your Password" />
-        <input type="button" style="display: block; background: #444; border: none; padding: 10px 50px; margin: 30px auto; color: #fff; cursor: pointer;" onclick='saveSettings()' value="Save Auth File"/>
-      </form>
-    </div>
-    <div style="text-align: center; padding: 50px 0;">
-      <h2 style="color: #fff;">Upload Form</h2>
-      <form style="text-align: left; max-width: 600px; margin: 0 auto;" action="/cgi-bin/upload.cgi" method="post" enctype="multipart/form-data">
-        File to upload: <input type="file" name="fileSelection">
-        <input type="submit" style="display: block; background: #444; border: none; padding: 10px 50px; margin: 30px auto; color: #fff; cursor: pointer;" value="Upload"/>
-      </form>
-    </div>
-    <div style="text-align: center; padding: 50px 0; background: #B6B455;">
-      <h2 style="color: #444;">Your Input</h2>
-      <div id="info-div" style="padding: 20px; line-hieght: 40px; max-width: 400px; min-height: 40px; background: rgba(255,255,255,0.6); margin: 0 auto; border-radius: 4px;">
-        Test Block</div>
-    </div>
-  </div>
+	<div style="height: 100%;">
+		<div style="text-align: center; padding: 10px 0; background: black;">
+			<h1 style="color: #fff;">Configure YottaMusic Speaker</h1>
+		</div>
+		<div style="text-align: center; background: grey; padding: 10px 0;">
+			<h2 style="color: #fff; cursor: pointer; display: block;" onclick="location.reload(true)">Refresh & Scan
+				WiFi</h2>
+		</div>
+		<div style="text-align: center; padding: 20px 0; background: #00A3D9;">
+			<h2 style="color: #fff;">Configure WiFi</h2>
+			<form style="text-align: left; max-width: 600px; margin: 0 auto;">
+				<div class="form-group" style="padding: 10px; width:200px;">
+					<label for="selectWifi">Select SSID:</label>
+					<select class="form-control" id="selectWifi">
+						<option value="0">None</option>
+					</select>
+				</div>
+				<br>
+				<input id="username" type="text"
+					style="padding: 10px; width: 100%; border: 1px solid rgba(0,0,0,0.4); border-radius: 4px; color: #555; margin-bottom: 20px;"
+					placeholder="Enter SSID" />
+				<input id="password" type="password"
+					style="padding: 10px; width: 100%; border: 1px solid rgba(0,0,0,0.4); border-radius: 4px; color: #555;"
+					placeholder="Enter Password" />
+				<input type="button"
+					style="display: block; background: #444; border: none; padding: 10px 50px; margin: 30px auto; color: #fff; cursor: pointer;"
+					onclick='saveSettings()' value="Config WiFi" />
+			</form>
+		</div>
+		<div style="text-align: center; padding: 50px 0; background: rgba(7, 140, 192, 0.644);">
+			<h2 style="color: #fff;">Configure Bluetooth</h2>
+			<input type="submit"
+				style="display: block; background: #444; border: none; padding: 10px 50px; margin: 30px auto; color: #fff; cursor: pointer;"
+				value="Pair New BT Key" onclick="location.reload(true)" />
+		</div>
+		<div style="text-align: center; padding: 50px 0; background: #B6B455;">
+			<h2 style="color: #444;">Response</h2>
+			<div id="info-div"
+				style="padding: 20px; line-hieght: 40px; max-width: 400px; min-height: 40px; background: rgba(255,255,255,0.6); margin: 0 auto; border-radius: 4px;">
+			</div>
+		</div>
+	</div>
 
 </body>
 
