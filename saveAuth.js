@@ -27,9 +27,13 @@ function httpGET(url) {
 		xmlHttp.send(null);
 		return url+" "+xmlHttp.responseText;
 }
-function saveSettings() {
-		var url = "/cgi-bin/saveAuthConfig.cgi?" + document.getElementById('username').value + ";" + document.getElementById('password').value;
+function saveWiFiSettings() {
+		var url = "/cgi-bin/saveWiFiConfig.cgi?" + document.getElementById('username').value + ";" + document.getElementById('password').value;
 		document.getElementById('info-div').innerHTML = httpGET(url);
+}
+function saveBTSettings() {
+	var url = "/cgi-bin/saveBTConfig.cgi";
+	document.getElementById('info-div').innerHTML = "BT Paired" + httpGET(url);
 }
 function updateTextBox() {
 	var select = document.getElementById("selectWifi");
