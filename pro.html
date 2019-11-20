@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Channel Mapping</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/common.css">
+<script language="javascript" type="text/javascript" src="js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="js/common.js"></script>
+</head>
+<style>
+	#content{height: 90%}
+	#main{height: 100%;display: flex;align-items: center;justify-content: center;}
+	.proL{width: 60%;height:80%;margin-right: 5%;background: #ccc;border-radius: 100px;}
+	.proL_btn{width: 43%;height: 3rem;line-height: 3rem;border: 1px solid;border-radius: 50px;margin-top:2rem;display: inline-block;}
+	.proL_btn:nth-child(odd){margin-left: 0.5rem}
+	.itemE,.itemF{margin: 0 auto;width: 45%;height: 3rem;line-height: 3rem;border: 1px solid;
+    border-radius: 50px;}
+	.itemE{margin-top: 3rem;}
+	.itemF{margin-top: 3rem;}
+	.proR{width:30%;height:80%;background: #ccc;}
+	.proR_btn{position: relative;top: 50%;margin-top: -6rem;padding: 0 0.5rem;}
+	.Rbtn1{width:80%;border:1px solid #262626;border-radius: 10px;position: absolute;}
+	.Rbtn2,.Rbtn3{border: 1px solid red;margin-bottom: 1rem;border-radius: 30px;}
+	.Rbtn1>div>span,.Rbtn2>span,.Rbtn3>span{display: inline-block;width: 45%;height: 2rem;line-height: 2rem}
+	.Rbtn1-Drop-down{display: flex;align-items: center;justify-content: center;}
+	.Rbtn1-Drop-down>span{font-size: 14px}
+	.Rbtn1-Drop-down>img{height: 1rem}
+	.Rbtn1-Drop-form{display: none;border-top: 1px solid #000;border-bottom-left-radius:10px;border-bottom-right-radius:10px;background: #ccc;z-index: 99;}
+	.Rbtn1-Drop-form>p{height: 2rem}
+	.Rbtn1-Drop-form>p:first-child{margin-top: 1rem}
+	.itemOn{background: yellow}
+	.itemColor{color: red}
+	.arrowZ{
+		transform:rotate(180deg);
+		transition: 0.5s;
+	}
+	.arrowF{
+		transform:rotate(0deg);
+		transition: 0.5s;
+	}
+	.Rbtn0{height: 3rem;border: 1px solid #000;border-radius: 20px}
+	.Rbtn0>span{vertical-align: sub;}
+</style>
+<body>
+<header>
+	<div id="header">
+		<img id="set" src="img/set.png" alt="">
+		<h1>Channel Mapping</h1>
+	</div>
+</header>
+<div id="content">
+	<ul id="main">
+		<div class="proL">
+				<div class="item itemE" mode='E'>E:1</div>
+				<div class="item itemA proL_btn" mode='A'>A:1</div>
+				<div class="item itemB proL_btn" mode='B'>B:1</div>
+				<div class="item itemC proL_btn" mode='C'>C:1</div>
+				<div class="item itemD proL_btn" mode='D'>D:1</div>
+				<div class="item itemF" mode='F'>F:1</div>
+		</div>
+		<div class="proR">
+				<div class="proR_btn">
+					<div class="Rbtn1">
+						<div class="Rbtn1-Drop-down"><span>喇叭</span><img class="arrow" src="img/arrow.png" alt=""></div>
+						<div class="Rbtn1-Drop-form">
+							<p class="btn">1</p>
+							<p class="btn">2</p>
+							<p class="btn">3</p>
+							<p class="btn">4</p>
+							<p class="btn">5</p>
+							<p class="btn">6</p>
+						</div>
+					</div>
+					<div style="height:4rem"></div>
+					<div class="Rbtn0"><span>Radio Button</span></div>
+				</div>
+		</div>
+	</ul>
+</div>
+<script language="javascript" type="text/javascript" src="js/footer.js"></script>
+</body>
+<script>
+	$(function(){
+		$('.pro').addClass('on');
+		$('.item').click(function(){
+			var a = $(this).attr('mode');
+			$('.item').removeClass('itemOn');
+			$('.item').removeClass('itemColor');
+			$(this).addClass('itemOn');
+			$('.Rbtn1-Drop-down').find('span').text(a);
+			localStorage.setItem('proIndex',$(this).index());
+			localStorage.setItem('proBtn',$('.Rbtn1-Drop-down').find('span').text());
+		})
+		$('.Rbtn0').click(function(){
+			$('.itemOn').hasClass('itemColor')?$('.itemOn').removeClass('itemColor'):$('.itemOn').addClass('itemColor');
+			$('.itemOn').hasClass('itemColor')?localStorage.setItem('proButton','itemColor'):localStorage.setItem('proButton',' ');
+		})
+		$('.Rbtn1-Drop-down').click(function(){
+			$('.Rbtn1-Drop-form').toggle()
+			$('.arrow').hasClass('arrowZ')?$('.arrow').addClass('arrowF').removeClass('arrowZ'):$('.arrow').addClass('arrowZ').removeClass('arrowF');
+		})
+		$('.btn').click(function(){	
+			var b = $(this).text();
+			var c = $('.itemOn').attr('mode');
+			$('.itemOn').text(c +'\:'+ b);
+			$('.Rbtn1-Drop-form').hide();
+			$('.arrow').hasClass('arrowZ')?$('.arrow').addClass('arrowF').removeClass('arrowZ'):$('.arrow').addClass('arrowZ').removeClass('arrowF');
+			switch($('.Rbtn1-Drop-down').find('span').text()){
+				case 'E':
+				localStorage.setItem('proE',$('.itemOn').text());
+				break;
+				case 'A':
+				localStorage.setItem('proA',$('.itemOn').text());
+				break;
+				case 'B':
+				localStorage.setItem('proB',$('.itemOn').text());
+				break;
+				case 'C':
+				localStorage.setItem('proC',$('.itemOn').text());
+				break;
+				case 'D':
+				localStorage.setItem('proD',$('.itemOn').text());
+				break;
+				case 'F':
+				localStorage.setItem('proF',$('.itemOn').text());
+				break;
+			}
+		})
+
+			localStorage.getItem('proIndex')?true:localStorage.setItem('proIndex',null);
+			localStorage.getItem('proE')?true:localStorage.setItem('proE','E:1');
+			localStorage.getItem('proA')?true:localStorage.setItem('proA','A:1');
+			localStorage.getItem('proB')?true:localStorage.setItem('proB','B:1');
+			localStorage.getItem('proC')?true:localStorage.setItem('proC','C:1');
+			localStorage.getItem('proD')?true:localStorage.setItem('proD','D:1');
+			localStorage.getItem('proF')?true:localStorage.setItem('proF','F:1');
+			localStorage.getItem('proBtn')?true:localStorage.setItem('proBtn','喇叭');
+
+// 读取数据
+			$('.proL>div').eq(localStorage.getItem('proIndex')).addClass('itemOn');
+			$('.itemOn').addClass(localStorage.getItem('proButton'));
+			$('.itemE').text(localStorage.getItem('proE'));
+			$('.itemA').text(localStorage.getItem('proA'));
+			$('.itemB').text(localStorage.getItem('proB'));
+			$('.itemC').text(localStorage.getItem('proC'));
+			$('.itemD').text(localStorage.getItem('proD'));
+			$('.itemF').text(localStorage.getItem('proF'));
+			$('.Rbtn1-Drop-down>span').text(localStorage.getItem('proBtn'));
+
+　　})
+</script>
+</html>

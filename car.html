@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>car</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/common.css">
+<script language="javascript" type="text/javascript" src="js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="js/common.js"></script>
+</head>
+<style>
+	#content{height: 90%; display: flex;align-items: center;justify-content: center;}
+	#content>ul>li{width: 6rem;height: 10rem;margin: 35px 20px;display: inline-block;border-radius: 30px;background: #ccc}
+	#main{position: relative;}
+	.circle{width: 2rem;height: 2rem;border:1px solid #000;border-radius: 100px; background: #ccc;display: inline-block;position: absolute;top: 50%;left: 50%;margin-left: -1rem;margin-top: -1rem}
+	.green{background: green !important}
+	form{position: absolute;top: 8%}
+	form>span{font-size:0.5rem;line-height: 1rem}
+	input{width: 25%;margin-right: 1rem;}
+</style>
+<body>
+<header>
+	<div id="header">
+		<img id="set" src="img/set.png" alt="">
+		<h1>Car Mode</h1>
+	</div>
+</header>
+<div id="content">
+	<form action="###">
+		<span>宽度：</span><input class="xValue" type="text" value="">
+		<span>长度：</span><input class="yValue" type="text" value="">
+	</form>
+	<ul id="main">
+		<li class="item item1"></li>
+		<li class="item item2"></li>
+		<li class="item item3"></li>
+		<li class="item item4"></li>
+		<span class="circle"></span>
+	</ul>
+</div>
+<script language="javascript" type="text/javascript" src="js/footer.js"></script>
+</body>
+<script>
+	$(function(){
+		$('.car').addClass('on');
+		var car_a = $('.circle').position().left;
+		var car_b = $('.circle').position().top;
+
+	　　$('.circle').on('touchmove', function (event) {
+			event.preventDefault();
+			$('#main>li').removeClass('green')
+	　　    var x = event.originalEvent.targetTouches[0].pageX - parseInt($('html').css('fontSize'));
+		　  var y = event.originalEvent.targetTouches[0].pageY - $('#main').offset().top;
+			if(x<$('.circle').width()){x = $('.circle').width()}else if(x>$('#main').width() - $('.circle').width()) {x = $('#main').width() - $('.circle').width()};
+			if(y<$('.circle').height())(y = $('.circle').height());
+			if(y>$('#main').height() - $('.circle').height()) {y = $('#main').height() - $('.circle').height()};
+	　    	$('.circle').css({
+				'left':x,
+				'top':y
+			});
+			if($('.item1').height()+$('.circle').height()>y&&x<$('.item1').width()+$('.circle').width()){
+				$('.item1').addClass('green');
+				localStorage.setItem('carIndex','.item1');
+			};
+			if($('.item2').height()+$('.circle').height()>y&&x>$('.item2').offset().left){
+				$('.item2').addClass('green');
+				localStorage.setItem('carIndex','.item2');
+			};
+			if($('.item3').offset().top - $('#main').offset().top<y&&x<$('.item3').width()+$('.circle').width()){
+				$('.item3').addClass('green');
+				localStorage.setItem('carIndex','.item3');
+			};
+			if($('.item4').offset().top - $('#main').offset().top<y&&x>$('.item4').offset().left){
+				$('.item4').addClass('green');
+				localStorage.setItem('carIndex','.item4');
+			};
+			$('.xValue').val(Math.round(x - car_a));
+			$('.yValue').val(Math.round(car_b - y));
+			localStorage.setItem('carX',x);
+			localStorage.setItem('carY',y);
+			localStorage.setItem('carTxtX',Math.round(x - car_a));
+			localStorage.setItem('carTxtY',Math.round(car_b - y));
+	　　});
+
+// 读取数据
+		$('.circle').css({
+			'left':parseFloat(localStorage.getItem('carX')),
+			'top':parseFloat(localStorage.getItem('carY'))
+		});
+		$('.xValue').val(localStorage.getItem('carTxtX'));
+		$('.yValue').val(localStorage.getItem('carTxtY'));
+		$(localStorage.getItem('carIndex')).addClass('green');
+　　})
+</script>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>功能模块</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/common.css">
+<script language="javascript" type="text/javascript" src="js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="js/common.js"></script>
+</head>
+<style>
+	#content{height: 90%}
+	#main{height: 100%;display: flex;align-items: center;justify-content: center;}
+	.feature{width: 90%;}
+	.item{width: 45%;height: 3rem;line-height: 3rem;border:1px solid #ccc;border-radius: 20px;float: left;}
+	.item:nth-child(1),.item:nth-child(2){margin-bottom: 2rem}
+	.item:nth-child(odd){margin-right: 1rem}
+</style>
+<body>
+<header>
+	<div id="header">
+		<img id="set" src="img/set.png" alt="">
+		<h1>功能模块</h1>
+	</div>
+</header>
+<div id="content">
+	<ul id="main">
+		<div class="feature">
+			<div class="item">原车</div>
+			<div class="item">车载/DLNA</div>
+			<div class="item">蓝牙</div>
+			<div class="item">Airplay</div>
+		</div>
+	</ul>
+</div>
+<script language="javascript" type="text/javascript" src="js/footer.js"></script>
+</body>
+<script>
+	$(function(){
+		$('.b').addClass('on');
+		$('.item').click(function(){
+			$('.item').css('background','#fff');
+			$(this).css('background','yellow');
+			localStorage.setItem('feaChoice',$(this).index());
+		})
+		$('.feature').find('div').eq(localStorage.getItem('feaChoice')).css('background','yellow');
+　　})
+</script>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>user</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/common.css">
+<script language="javascript" type="text/javascript" src="js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="js/common.js"></script>
+</head>
+<style>
+	#content{height: 90%}
+	#main{height: 50%;padding-top: 1rem;}
+	#main>li{float: left;width: 17%;height:100%;border-right: 3px solid #ccc;position: relative;}
+	.circle{width: 1rem;height: 1rem;border:1px solid #000;border-radius: 100px; background: #ccc;display: inline-block;position: absolute;top: 50%;left: 100%;margin-left: -0.5rem;margin-top: -0.5rem;z-index: 9}
+	#reset{width: 5rem;height: 3rem;line-height: 3rem;background:#ccc;margin: 5rem auto}
+	.item>p{top: 100%;left: 50%;font-size: 14px;position: relative;}
+	.item>p:nth-child(2){margin-top: 1rem}
+	.dashed{width: 100%;height: 1px;border-bottom: 2px dashed;top: 50%;position: relative;}
+</style>
+<body>
+<header>
+	<div id="header">
+		<img id="set" src="img/set.png" alt="">
+		<h1>User Mode</h1>
+	</div>
+</header>
+<div id="content">
+	<ul id="main">
+		<li class="item itemA"><span class="circle circleA" ></span><p class="useTxtA">0db</p><p>40hz</p></li>
+		<li class="item itemB"><span class="circle circleB" ></span><p class="useTxtB">0db</p><p>160hz</p></li>
+		<li class="item itemC"><span class="circle circleC" ></span><p class="useTxtC">0db</p><p>650hz</p></li>
+		<li class="item itemD"><span class="circle circleD" ></span><p class="useTxtD">0db</p><p>2500hz</p></li>
+		<li class="item itemE"><span class="circle circleE" ></span><p class="useTxtE">0db</p><p>10000hz</p></li>
+		<div class="dashed"></div>
+	</ul>
+	<div id="reset">reset</div>
+</div>
+<script language="javascript" type="text/javascript" src="js/footer.js"></script>
+</body>
+<script>
+	$(function(){
+		$('.user').addClass('on');
+		$('.circle').on('touchstart', function () {
+	　　 	$(this).css('background','#fff')
+	　　});
+	　　$('.circle').on('touchmove', function (event) {
+			event.preventDefault();
+		　  var y = event.originalEvent.targetTouches[0].pageY - $('.item').offset().top;
+			if(y<$('.circle').height()/2)(y = 0);
+			if(y>$('.item').height() - $('.circle').height()/2) {y = $('.item').height() };
+	　    	$(this).css({
+				'top':y
+			});
+			if(y > $('.item').height()/2){
+				$(this).parent('li').css('borderColor','blue');
+				var sum = '-'+Math.round((y/($('.item').height()/2) - 1)*15)+'db';
+				$(this).parent('li').find('p').eq(0).text(sum);
+				switch($(this).parent().index()){
+					case 0:
+					localStorage.setItem('useTxtA',sum);
+					break;
+					case 1:
+					localStorage.setItem('useTxtB',sum);
+					break;
+					case 2:
+					localStorage.setItem('useTxtC',sum);
+					break;
+					case 3:
+					localStorage.setItem('useTxtD',sum);
+					break;
+					case 4:
+					localStorage.setItem('useTxtE',sum);
+					break;
+				}
+			}else{
+				$(this).parent('li').css('borderColor','red');
+				var sum = Math.round((1 - y/($('.item').height()/2))*15)+'db';
+				$(this).parent('li').find('p').eq(0).text(sum);
+				switch($(this).parent().index()){
+					case 0:
+					localStorage.setItem('useTxtA',sum);
+					break;
+					case 1:
+					localStorage.setItem('useTxtB',sum);
+					break;
+					case 2:
+					localStorage.setItem('useTxtC',sum);
+					break;
+					case 3:
+					localStorage.setItem('useTxtD',sum);
+					break;
+					case 4:
+					localStorage.setItem('useTxtE',sum);
+					break;
+				}
+			}
+			switch($(this).parent().index()){
+				case 0:
+				localStorage.setItem('useA',y);
+				break;
+				case 1:
+				localStorage.setItem('useB',y);
+				break;
+				case 2:
+				localStorage.setItem('useC',y);
+				break;
+				case 3:
+				localStorage.setItem('useD',y);
+				break;
+				case 4:
+				localStorage.setItem('useE',y);
+				break;
+			}
+	　　});
+	　　$('.circle').on('touchend', function () {
+			$(this).css('background','#ccc')
+	　　});
+		$('#reset').click(function(){
+			$('.item').css('borderColor','#ccc');
+			$('.item').each(function(){
+				$(this).find('p').eq(0).text('0db')
+			});
+			$('.circle').css('top','50%');
+			localStorage.setItem('useTxtA','0db');
+			localStorage.setItem('useTxtB','0db');
+			localStorage.setItem('useTxtC','0db');
+			localStorage.setItem('useTxtD','0db');
+			localStorage.setItem('useTxtE','0db');
+			localStorage.removeItem('useA')
+			localStorage.removeItem('useB')
+			localStorage.removeItem('useC')
+			localStorage.removeItem('useD')
+			localStorage.removeItem('useE')
+		})
+
+		parseFloat(localStorage.getItem('useTxtA'))!=0?(parseFloat(localStorage.getItem('useTxtA'))>0?$('.itemA').css('borderColor','red'):$('.itemA').css('borderColor','blue')):$('.itemA').css('borderColor','#ccc')
+		parseFloat(localStorage.getItem('useTxtB'))!=0?(parseFloat(localStorage.getItem('useTxtB'))>0?$('.itemB').css('borderColor','red'):$('.itemB').css('borderColor','blue')):$('.itemB').css('borderColor','#ccc')
+		parseFloat(localStorage.getItem('useTxtC'))!=0?(parseFloat(localStorage.getItem('useTxtC'))>0?$('.itemC').css('borderColor','red'):$('.itemC').css('borderColor','blue')):$('.itemC').css('borderColor','#ccc')
+		parseFloat(localStorage.getItem('useTxtD'))!=0?(parseFloat(localStorage.getItem('useTxtD'))>0?$('.itemD').css('borderColor','red'):$('.itemD').css('borderColor','blue')):$('.itemD').css('borderColor','#ccc')
+		parseFloat(localStorage.getItem('useTxtE'))!=0?(parseFloat(localStorage.getItem('useTxtE'))>0?$('.itemE').css('borderColor','red'):$('.itemE').css('borderColor','blue')):$('.itemE').css('borderColor','#ccc')
+		localStorage.getItem('useTxtA')?true:localStorage.setItem('useTxtA','0db');
+		localStorage.getItem('useTxtB')?true:localStorage.setItem('useTxtB','0db');
+		localStorage.getItem('useTxtC')?true:localStorage.setItem('useTxtC','0db');
+		localStorage.getItem('useTxtD')?true:localStorage.setItem('useTxtD','0db');
+		localStorage.getItem('useTxtE')?true:localStorage.setItem('useTxtE','0db');
+
+		// 读取图表位置
+		$('.circleA').css('top',parseFloat(localStorage.getItem('useA')));
+		$('.circleB').css('top',parseFloat(localStorage.getItem('useB')));
+		$('.circleC').css('top',parseFloat(localStorage.getItem('useC')));
+		$('.circleD').css('top',parseFloat(localStorage.getItem('useD')));
+		$('.circleE').css('top',parseFloat(localStorage.getItem('useE')));
+
+		// 读取数据
+		$('.useTxtA').text(localStorage.getItem('useTxtA'));
+		$('.useTxtB').text(localStorage.getItem('useTxtB'));
+		$('.useTxtC').text(localStorage.getItem('useTxtC'));
+		$('.useTxtD').text(localStorage.getItem('useTxtD'));
+		$('.useTxtE').text(localStorage.getItem('useTxtE'));
+
+　　})
+</script>
+</html>

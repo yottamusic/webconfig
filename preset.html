@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>preset</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/common.css">
+<script language="javascript" type="text/javascript" src="js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="js/common.js"></script>
+</head>
+<style>
+	#content{height: 90%; display: flex;align-items: center;justify-content: center;}
+	#content>ul>li{width: 6rem;height: 6rem;margin: 15px 5px;display: inline-block;overflow: hidden;}
+	.grey{-webkit-filter: grayscale(100%); filter: grayscale(100%);}
+	.on{color: #000 !important;background: #fff !important;display: block;}
+	.item{position: relative;}
+	.item>img{width: 100%}
+	.item>span{ width: 100%;height: 30%;color: #fff;position: absolute;top: 70%;left: 0;z-index: 9;background: rgba(0,0,0,0.5);}
+</style>
+<body>
+<header>
+	<div id="header">
+		<img id="set" src="img/set.png" alt="">
+		<h1>Preset Mode</h1>
+	</div>
+</header>
+<div id="content">
+	<ul>
+		<li class="item"><img class="grey" src="img/1.jpg" alt=""><span>A</span></li>
+		<li class="item"><img class="grey" src="img/1.jpg" alt=""><span>B</span></li>
+		<li class="item"><img class="grey" src="img/1.jpg" alt=""><span>C</span></li>
+		<li class="item"><img class="grey" src="img/1.jpg" alt=""><span>D</span></li>
+		<li class="item"><img class="grey" src="img/1.jpg" alt=""><span>E</span></li>
+		<li class="item"><img class="grey" src="img/1.jpg" alt=""><span>F</span></li>
+	</ul>
+</div>
+<script language="javascript" type="text/javascript" src="js/footer.js"></script>
+</body>
+<script>
+	$(function(){
+		$('.preset').addClass('on');
+		var h = $('.item').height()*0.3 + 'px';
+		$('.item').find('span').css('line-height',h);
+		$('.item').click(function(){
+			$('#content>ul>li>img').addClass('grey');
+			$(this).find('img').removeClass("grey");
+			localStorage.setItem('PresetIndex',$(this).index());
+		})
+
+		if(localStorage.getItem('PresetIndex')!=null){
+			$('#content>ul>li').eq(localStorage.getItem('PresetIndex')).find('img').removeClass("grey");
+		}
+	})
+</script>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eq</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/common.css">
+<script language="javascript" type="text/javascript" src="js/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="js/common.js"></script>
+</head>
+<style>
+	span{font-size: 0.5rem}
+	img{height: 0.8rem}
+	#content{height: 90%}
+	.Rbtn2{margin-left: 1.5rem}
+	.Rbtn2,.Rbtn3{width: 3rem}
+	.Rbtn2,.Rbtn3,.Rbtn4,.Rbtn5,.Rbtn6{height:1.5rem;line-height: 1.5rem;border: 1px solid #ccc;border-radius: 10px;margin-right: 0.4rem;margin-bottom:20rem;float: left;}
+	.Rbtn2-Drop-down,.Rbtn3-Drop-down,.Rbtn4-Drop-down,.Rbtn5-Drop-down,.Rbtn6-Drop-down{display: flex;align-items: center;justify-content: center;}
+	.Rbtn2-Drop-form,.Rbtn3-Drop-form,.Rbtn4-Drop-form{display: none;height:10rem;border-top: 1px solid #000;border-bottom-left-radius:10px;border-bottom-right-radius:10px;background: #ccc;z-index: 99;overflow: auto;}
+	.Rbtn2-Drop-form>p,.Rbtn3-Drop-form>p,.Rbtn3-Drop-form>p,.Rbtn4-Drop-form>p{height: 1.5rem;font-size: 0.5rem}
+	.Rbtn4-Drop-down>input{width: 2rem;line-height: 1.5rem;border:none;border-radius: 10px;float: left;margin: 0;padding: 0;}
+	.Rbtn5-Drop-down>input{width: 2rem;line-height: 1.5rem;border:none;border-radius: 10px;float: left;margin: 0;padding: 0;}
+	.Rbtn6-Drop-down>input{width: 2.5rem;line-height: 1.5rem;border:none;border-radius: 10px;float: left;margin: 0;padding: 0;}
+	input{font-size: 0.5rem}
+	h5{margin-bottom:10px}
+	.arrowZ{
+		transform:rotate(180deg);
+		transition: 0.5s;
+	}
+	.arrowF{
+		transform:rotate(0deg);
+		transition: 0.5s;
+	}
+	.Rbtn0{margin-bottom: 0.5rem}
+	.Rbtn0>ul{height: 1.5rem}
+	.Rbtn0>ul>li{float: left;width: 15%;margin-right: 1%;border: 1px solid #ccc;border-radius: 20px;line-height: 1.5rem;font-size: 0.6rem}
+	.onSpeaker{background: #ccc}
+	#save{width: 5rem;line-height: 1.5rem;border-radius: 10px;border: 1px solid #ccc;margin: 0 auto;clear: both;}
+</style>
+<body>
+<header>
+	<div id="header">
+		<img id="set" src="img/set.png" alt="">
+		<h1>EQ</h1>
+	</div>
+</header>
+<div id="content">
+	<div id="main2">
+		<h5>专家EQ</h5>
+		<div class="Rbtn0">	
+			<ul>
+				<li item="speaker1" class="speaker1">喇叭1</li>
+				<li item="speaker2" class="speaker2">喇叭2</li>
+				<li item="speaker3" class="speaker3">喇叭3</li>
+				<li item="speaker4" class="speaker4">喇叭4</li>
+				<li item="speaker5" class="speaker5">喇叭5</li>
+				<li item="speaker6" class="speaker6">喇叭6</li>
+			</ul>
+		</div>
+		<div class="Rbtn2">
+			<div class="Rbtn2-Drop-down"><span>模式</span><img class="arrow" src="img/arrow.png" alt=""></div>
+			<div class="Rbtn2-Drop-form">
+				<p class="btn">EQ</p>
+				<p class="btn">低通</p>
+				<p class="btn">高通</p>
+				<p class="btn">全通</p>
+				<p class="btn">陷波</p>
+			</div>
+		</div>
+		<div class="Rbtn3">
+			<div class="Rbtn3-Drop-down"><span>菜单</span><img class="arrow" src="img/arrow.png" alt=""></div>
+			<div class="Rbtn3-Drop-form">
+				<p class="btn">1</p>
+				<p class="btn">2</p>
+				<p class="btn">3</p>
+				<p class="btn">4</p>
+				<p class="btn">5</p>
+				<p class="btn">6</p>
+				<p class="btn">7</p>
+				<p class="btn">8</p>
+				<p class="btn">9</p>
+				<p class="btn">10</p>
+				<p class="btn">11</p>
+				<p class="btn">12</p>
+				<p class="btn">13</p>
+				<p class="btn">14</p>
+				<p class="btn">15</p>
+				<p class="btn">16</p>
+				<p class="btn">17</p>
+				<p class="btn">18</p>
+				<p class="btn">19</p>
+				<p class="btn">20</p>
+			</div>
+		</div>
+		<div class="Rbtn4">
+			<div class="Rbtn4-Drop-down"><input class="Rbtn4_txt" type="text" value="0"></div>
+			<div class="Rbtn4-Drop-form">
+				<p class="btn">1</p>
+				<p class="btn">2</p>
+				<p class="btn">3</p>
+				<p class="btn">4</p>
+				<p class="btn">5</p>
+				<p class="btn">6</p>
+				<p class="btn">7</p>
+				<p class="btn">8</p>
+				<p class="btn">9</p>
+				<p class="btn">10</p>
+				<p class="btn">11</p>
+				<p class="btn">12</p>
+				<p class="btn">13</p>
+				<p class="btn">14</p>
+				<p class="btn">15</p>
+				<p class="btn">16</p>
+				<p class="btn">17</p>
+				<p class="btn">18</p>
+				<p class="btn">19</p>
+				<p class="btn">20</p>
+			</div>
+		</div>
+		<div class="Rbtn5">
+			<div class="Rbtn5-Drop-down"><input class="Rbtn5_txt" type="text" value="" placeholder='Q'></div>
+		</div>
+		<div class="Rbtn6">
+			<div class="Rbtn6-Drop-down"><input class="Rbtn6_txt" type="text" value="" placeholder='增益'></div>
+		</div>
+	</div>
+	<div id="save">生效</div>
+</div>
+<script language="javascript" type="text/javascript" src="js/footer.js"></script>
+</body>
+<script>
+	$(function(){
+		$('.a').addClass('on');
+		$('.Rbtn0>ul>li').click(function(){
+			$('.Rbtn0>ul>li').removeClass('onSpeaker');
+			$(this).addClass('onSpeaker');
+		})
+
+		function btn_list(a,b,c,d){
+			$(a).click(function(){
+				$(b).toggle();
+				$(d).hasClass('arrowZ')?$(d).addClass('arrowF').removeClass('arrowZ'):$(d).addClass('arrowZ').removeClass('arrowF');
+			})
+			$(c).click(function(){
+				var x = $(this).text();
+				$(d).hasClass('arrowZ')?$(d).addClass('arrowF').removeClass('arrowZ'):$(d).addClass('arrowZ').removeClass('arrowF');
+				$(a).find('span').text(x);
+				$(b).hide();
+			})
+		}
+
+		function txt_list(a,b,c){
+			$(a).click(function(){
+				$(b).toggle();
+			})
+			$(c).click(function(){
+				var x = $(this).text();
+				$(a).find('input').val(x);
+				$(b).hide();
+			})
+		}
+		btn_list('.Rbtn2-Drop-down','.Rbtn2-Drop-form','.Rbtn2>div>p','.Rbtn2>div>img');
+		btn_list('.Rbtn3-Drop-down','.Rbtn3-Drop-form','.Rbtn3>div>p','.Rbtn3>div>img');
+		txt_list('.Rbtn4-Drop-down','.Rbtn4-Drop-form','.Rbtn4>div>p');
+	
+		$('#save').click(function(){
+			localStorage.setItem('ModeRbtn0','.'+$('.onSpeaker').attr('item'));
+			localStorage.setItem('ModeRbtn2',$('.Rbtn2>div>span').text());
+			localStorage.setItem('ModeRbtn3',$('.Rbtn3>div>span').text());
+			localStorage.setItem('ModeRbtn4',$('.Rbtn4_txt').val());
+			localStorage.setItem('ModeRbtn5',$('.Rbtn5_txt').val());
+			localStorage.setItem('ModeRbtn6',$('.Rbtn6_txt').val());
+		})
+
+// 读取数据
+		if(localStorage.getItem('ModeRbtn2')!=null&&localStorage.getItem('ModeRbtn3')!=null){
+			$(localStorage.getItem('ModeRbtn0')).addClass('onSpeaker');
+			$('.Rbtn2>div>span').text(localStorage.getItem('ModeRbtn2'));
+			$('.Rbtn3>div>span').text(localStorage.getItem('ModeRbtn3'));
+			$('.Rbtn4_txt').val(localStorage.getItem('ModeRbtn4'));
+			$('.Rbtn5_txt').val(localStorage.getItem('ModeRbtn5'));
+			$('.Rbtn6_txt').val(localStorage.getItem('ModeRbtn6'));
+		}
+
+　　})
+</script>
+</html>
