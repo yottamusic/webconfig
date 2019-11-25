@@ -705,7 +705,7 @@ function getMoreInfo() {
                         for (var j = 0, l = o.data.length; j < l; j++) {
                             var src = "";
                             var li = document.createElement("li");
-                            if (o.data[j]["imgurl"]) src = "/fmlogo/64/" + o.data[j]["imgurl"];
+                            //if (o.data[j]["imgurl"]) src = "/fmlogo/64/" + o.data[j]["imgurl"];
                             var html = "";
                             if (fmid == o.data[j]["fmid"]) {
                                 html += "<div id='fmbutton" + o.data[j]["fmid"] + "' class='fmpause gobal_bg'><i></i></div>"
@@ -713,7 +713,7 @@ function getMoreInfo() {
                                 html += "<div id='fmbutton" + o.data[j]["fmid"] + "' class='fmplay gobal_bg'><i></i></div>"
                             }
                             html += "<div class='pic'><img src='" + defaultImg + "' _src='" + src + "' width='38' height='38' alt=''/></div>";
-                            html += "<div class='textfm'>" + o.data[j]["fmname"].intercept(30, "...") + "<span _size='" + o.data[j]["fmSongData"][0].songs[0].size + "' _bitrate='" + o.data[j]["fmSongData"][0].songs[0].bitrate + "' _hash='" + o.data[j]["fmSongData"][0].songs[0]["hash"] + "' _time='" + o.data[j]["fmSongData"][0].songs[0].time + "' id='fmsong" + o.data[j]["fmid"] + "'>" + o.data[j]["fmSongData"][0].songs[0].name + "</span></div>";
+                            html += "<div class='textfm'>" + o.data[j]["fmname"].intercept(30, "...") + "<span _size='" + o.data[j]["fmSongData"][0].songs[0].size + "' _bitrate='" + o.data[j]["fmSongData"][0].songs[0].bitrate + "' _hash='" + o.data[j]["fmSongData"][0].songs[0].hash + "' _time='" + o.data[j]["fmSongData"][0].songs[0].time + "' id='fmsong" + o.data[j]["fmid"] + "'>" + o.data[j]["fmSongData"][0].songs[0].name + "</span></div>";
                             html += "</li>";
                             fmids.push(o.data[j]["fmid"]);
                             li.title = o.data[j]["fmname"];
@@ -1046,18 +1046,23 @@ function getFmList(initList) {
             o = new Function("return " + o)();
             if (o.status == 1) {
                 if (o.data != null && o.data.length > 0) {
-        console.log(o.data.length);
                     for (var j = 0, l = o.data.length; j < l; j++) {
                         var src = "";
-                        //if (o.data[j]["imgurl"]) src = "/fmlogo/64/" + o.data[j]["imgurl"];
-                        str = str + "<li title='" + o.data[j]["fmname"] + "' onclick='playFm(" + o.data[j]["fmid"] + ")'>";
+                        //if (o.data[j]["imgurl"]) src = "http://imge.kugou.com/fmlogo/64/" + o.data[j]["imgurl"];
+                        str += "<li title='" + o.data[j]["fmname"] + "' onclick='playFm(" + o.data[j]["fmid"] + ")'>";
+
                         if (fmid == o.data[j]["fmid"]) {
                             str += "<div id='fmbutton" + o.data[j]["fmid"] + "' class='fmpause gobal_bg'><i></i></div>"
                         } else {
                             str += "<div id='fmbutton" + o.data[j]["fmid"] + "' class='fmplay gobal_bg'><i></i></div>"
                         }
                         str += "<div class='pic'><img src='" + defaultImg + "' _src='" + src + "' width='38' height='38' alt=''/></div>";
-                        //str += "<div class='textfm'>" + o.data[j]["fmname"].intercept(30, "...") + "<span _size='" + o.data[j]["fmSongData"][0].songs[0].size + "' _bitrate='" + o.data[j]["fmSongData"][0].songs[0].bitrate + "' _hash='" + o.data[j]["fmSongData"][0].songs[0].hash + "' _time='" + o.data[j]["fmSongData"][0].songs[0].time + "' id='fmsong" + o.data[j]["fmid"] + "'>" + o.data[j]["fmSongData"][0].songs[0].name + "</span></div>";
+                        str += "<div class='textfm'>" + o.data[j]["fmname"].intercept(30, "...") + 
+							"<span _size=" + o.data[j]["fmSongData"][0].songs[0].size + 
+							" _bitrate=" + o.data[j]["fmSongData"][0].songs[0].bitrate +
+							" _time=" + o.data[j]["fmSongData"][0].songs[0].time +
+							" id='fmsong" + String(o.data[j]["fmid"]) +
+							"' _hash='" + o.data[j]["fmSongData"][0].songs[0].hash + "'>" + o.data[j]["fmSongData"][0].songs[0].name + "</span></div>";
                         str += "</li>";
                         fmids.push(o.data[j]["fmid"])
                     }
@@ -1066,7 +1071,6 @@ function getFmList(initList) {
                 } else {
                     str += "<li class='m'>已经是最后一页了</li>"
                 }
-        console.log(str);
                 el.className = "";
                 el.innerHTML = str;
                 //window.scrollTo(0, 1)
@@ -1524,7 +1528,7 @@ function playMyListSong(o) {
                 "singer": o.data[j].filename.split("-")[0],
                 "time": o.data[j].timelength,
                 "size": o.data[j].filesize,
-                "hash": o.data[j]["hash"],
+                "hash": o.data[j].hash,
                 "bitrate": +o.data[j].bitrate
             };
             lisdata.push(items)
@@ -1907,7 +1911,6 @@ function returnMoreLists(o) {
 }
 
 function showSongsList(cid, dom) {
-    console.log(cid);
     listid = cid;
     page = 1;
     var el = Kg.$$("#content > ul")[5];
@@ -1993,16 +1996,11 @@ function returnSongsMore(o) {
 
 function getData(cmd, cid, page, pagesize, callback) {
     var myScript = document.createElement("script");
-    if ((""+cid).startsWith('/media')) {
+    if (String(cid).startsWith('/media')) {
 		myScript.src = yottaCar+"/cgi-bin/hifi/disk?cmd=" + cmd + "&cid=" + cid + "&type=" + cid + "&page=" + page + "&pagesize=" + pagesize + "&outputtype=jsonp&callback=" + callback;
 	}else{
 		myScript.src = "http://mobilecdn.kugou.com/new/app/i/yueku.php?cmd=" + cmd + "&cid=" + cid + "&type=" + cid + "&page=" + page + "&pagesize=" + pagesize + "&outputtype=jsonp&callback=" + callback;
 	}
-    var header = document.getElementsByTagName('body')[0];
-    header.appendChild(myScript)
-}
-function getDiskData(cmd, cid, page, pagesize, callback) {
-    var myScript = document.createElement("script");
     var header = document.getElementsByTagName('body')[0];
     header.appendChild(myScript)
 }
@@ -2388,10 +2386,9 @@ function Player(fatherId, playerId) {
 };
 Player.prototype.create = function(hash, filename) {
     var src;
-    src = ""+hash;
-    if (src.startsWith('/media')) {
+    if (String(hash).startsWith('/media')) {
 		src = hash;
-		console.log(src);
+		Kg.get(yottaCar+"/cgi-bin/hifi/play", {"url": src}, function(result) {}, "", false);
     } else
     if (hash != 0) {
         Kg.getJSON(yottaCar+"/cgi-bin/hifi/proxy?http://m.kugou.com/app/i/getSongInfo.php", {
@@ -2400,14 +2397,14 @@ Player.prototype.create = function(hash, filename) {
         }, function(result) {
             src = result.url
         }, "", false)
+		Kg.get(yottaCar+"/cgi-bin/hifi/play", {"url": String(src).replace('https', 'http')}, function(result) {}, "", false);
     }
-    var tmp = ""+src;
-    Kg.get(yottaCar+"/cgi-bin/hifi/play", {"url": tmp.replace('https', 'http')}, function(result) {}, "", false);
-    src = yottaCar + src;
-    console.log(src);
+    //src = yottaCar + src;
+
     var htmlstr = "<audio id='" + this.playerId + "' src='" + src + "' autoplay='autoplay' controls></audio>";
     document.getElementById(this.fatherId).innerHTML = htmlstr;
     document.getElementById(this.playerId).play();
+    document.getElementById(this.playerId).volume=0.0;
     if (document.getElementById(this.playerId).onended != "undefined") {
         document.getElementById(this.playerId).onended = function() {
             playNextSongAuto()
@@ -2416,7 +2413,7 @@ Player.prototype.create = function(hash, filename) {
     document.getElementById(this.playerId).addEventListener("ended", function() {
         playNextSongAuto()
     });
-    if (filename != "听音乐，找酷狗" && filename.trim() != "") {
+    if (filename != "Yotta Music" && filename.trim() != "") {
         getSinHead(filename.split("-")[0], 52);
         if (visible == true) {
             getSinHeadBig(filename.split("-")[0], 400)
@@ -2476,7 +2473,7 @@ Player.prototype.addSongsNoPlay = function(songs) {
 };
 Player.prototype.init = function() {
     var hash = 0;
-    var filename = "听音乐，找酷狗";
+    var filename = "Yotta Music";
     this.create(hash, filename)
 };
 Player.prototype.last = function() {
@@ -2563,12 +2560,15 @@ Player.prototype.next = function(auto) {
 Player.prototype.playOrPause = function() {
     if (document.getElementById(this.playerId).paused) {
         document.getElementById(this.playerId).play()
+        document.getElementById(this.playerId).volume=0.0;
     } else {
         document.getElementById(this.playerId).pause()
     }
 };
 Player.prototype.play = function() {
-    document.getElementById(this.playerId).play()
+    document.getElementById(this.playerId).play();
+    document.getElementById(this.playerId).volume=0.0;
+
 };
 Player.prototype.pause = function() {
     document.getElementById(this.playerId).pause()
@@ -2621,7 +2621,7 @@ function undulpicate(array) {
     return array
 };
 var getSinHead = function(name, size) {
-    if (name.trim() != "" && name != null && name != "听音乐，找酷狗") {
+    if (name.trim() != "" && name != null && name != "Yotta Music") {
         Kg.getJSON("../app/i/getSingerHead_new.php", {
             "singerName": name.split(/\s-\s/)[0].trim(),
             "size": size,
@@ -2636,7 +2636,7 @@ var getSinHead = function(name, size) {
     }
 };
 var getSinHeadBig = function(name, size) {
-    if (name.trim() != "" && name != null && name != "听音乐，找酷狗") {
+    if (name.trim() != "" && name != null && name != "Yotta Music") {
         Kg.getJSON("../app/i/getSingerHead_new.php", {
             "singerName": name.split(/\s-\s/)[0].trim(),
             "size": size,
@@ -2755,7 +2755,7 @@ var playNextSongManual = function() {
 };
 var getRadioSongHead = function(fmid, offsets) {
     if (myplayer.getSongsNum() - 1 == myplayer.index) {
-        Kg.getJSON("../app/i/fmSongs.php", {
+        Kg.getJSON(yottaCar+"/cgi-bin/hifi/proxy?http://m.kugou.com/app/i/fmSongs.php", {
             "fmid": fmid,
             "offset": offsets,
             "size": 20
@@ -2777,7 +2777,7 @@ var getRadioSongHead = function(fmid, offsets) {
 };
 var getRadioSongs = function(fmid, offsets) {
     if (myplayer.index == myplayer.getSongsNum() - 3) {
-        Kg.getJSON("../app/i/fmSongs.php", {
+        Kg.getJSON(yottaCar+"/cgi-bin/hifi/proxy?http://m.kugou.com/app/i/fmSongs.php", {
             "fmid": fmid,
             "offset": offsets,
             "size": 20
@@ -2798,7 +2798,7 @@ var getRadioSongs = function(fmid, offsets) {
 };
 var setTitle = function(dom) {
     if (!!(document.createElement('audio').canPlayType("audio/mpeg"))) {
-        if (myplayer.songs[myplayer.index].singer == "听音乐，找酷狗") {
+        if (myplayer.songs[myplayer.index].singer == "Yotta Music") {
             document.getElementById(dom).innerHTML = myplayer.songs[myplayer.index].singer
         } else {
             document.getElementById(dom).innerHTML = myplayer.songs[myplayer.index].filename
@@ -2842,7 +2842,8 @@ var playFm = function(id) {
         document.getElementById("playButton").className = "pause gobal_bg";
         if (fmid == id) {
             el.className = el.className.replace("fmplay", "fmpause");
-            myplayer.play()
+            myplayer.play();
+            document.getElementById(this.playerId).volume=0.0;
         } else {
             var name = document.getElementById("fmsong" + id).innerHTML;
             var time = document.getElementById("fmsong" + id).getAttribute("_time");
@@ -2976,7 +2977,7 @@ if (!!(document.createElement('audio').canPlayType("audio/mpeg"))) {
         var name = decodeURIComponent(Request.QueryString("name"));
         var hash = Request.QueryString("hash");
         var time;
-        Kg.getJSON(yottaCar+"/hifi/proxy?http://m.kugou.com/app/i/getSongInfo.php", {
+        Kg.getJSON(yottaCar+"/cgi-bin/hifi/proxy?http://m.kugou.com/app/i/getSongInfo.php", {
             "hash": hash,
             "cmd": "playInfo"
         }, function(result) {
@@ -3026,7 +3027,7 @@ if (!!(document.createElement('audio').canPlayType("audio/mpeg"))) {
         document.getElementById("playButton").className = "pause gobal_bg"
     } else {
         var songInfo = [{
-            "filename": "听音乐，找酷狗",
+            "filename": "Yotta Music",
             "hash": "0",
             "timelength": "123"
         }];
