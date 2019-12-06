@@ -35,6 +35,14 @@ function saveBTSettings() {
 	var url = "/cgi-bin/saveBTConfig.cgi";
 	document.getElementById('info-div').innerHTML = "BT Paired" + httpGET(url);
 }
+function restartRenderer() {
+	var url = "/cgi-bin/restartRenderer.cgi";
+	document.getElementById('info-div').innerHTML = "Restart Renderer" + httpGET(url);
+}
+function rescanDrives() {
+	var url = "/cgi-bin/rescanDrives.cgi";
+	document.getElementById('info-div').innerHTML = "Rescan Drives" + httpGET(url);
+}
 function updateTextBox() {
 	var select = document.getElementById("selectWifi");
 	if(select.options.length > 0 || select.options[select.selectedIndex].value == 0) {
